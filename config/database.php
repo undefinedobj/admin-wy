@@ -49,9 +49,15 @@ return [
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
-            'prefix' => 'wy_',
+            // 'prefix' => 'wy_',
+            'prefix' => '',
             'strict' => true,
             'engine' => null,
+            // 'dump' => [
+            //     'dump_binary_path' => '',
+            //     'use_single_transaction',
+            //     'timeout' => 60 * 30,       // 30 minute timeout
+            // ]
         ],
 
         'pgsql' => [
