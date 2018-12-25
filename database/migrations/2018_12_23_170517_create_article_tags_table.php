@@ -19,6 +19,7 @@ class CreateArticleTagsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        DB::statement("alter table `article_tags` comment'关系表：文章 - 标签'");    # 增加表注释
     }
 
     /**

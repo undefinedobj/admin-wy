@@ -19,6 +19,7 @@ class CreateChatsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        DB::statement("alter table `chats` comment'闲言碎语表'");    # 增加表注释
     }
 
     /**

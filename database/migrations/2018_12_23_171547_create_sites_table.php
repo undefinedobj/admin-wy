@@ -24,6 +24,7 @@ class CreateSitesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        DB::statement("alter table `sites` comment'推荐博客(审核)表'");    # 增加表注释
     }
 
     /**

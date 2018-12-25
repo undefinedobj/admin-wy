@@ -19,6 +19,7 @@ class CreateConsolesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        DB::statement("alter table `consoles` comment'日志表'");    # 增加表注释
     }
 
     /**

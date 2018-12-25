@@ -23,6 +23,7 @@ class CreateCategoriesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        DB::statement("alter table `categories` comment'文章分类表'");    # 增加表注释
     }
 
     /**

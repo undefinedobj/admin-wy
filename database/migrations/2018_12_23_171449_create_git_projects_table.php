@@ -21,6 +21,7 @@ class CreateGitProjectsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        DB::statement("alter table `git_projects` comment'项目表'");    # 增加表注释
     }
 
     /**

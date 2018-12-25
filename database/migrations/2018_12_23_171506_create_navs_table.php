@@ -21,6 +21,7 @@ class CreateNavsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        DB::statement("alter table `navs` comment'菜单表'");    # 增加表注释
     }
 
     /**

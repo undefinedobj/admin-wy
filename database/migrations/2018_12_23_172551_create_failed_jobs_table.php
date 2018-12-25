@@ -21,6 +21,7 @@ class CreateFailedJobsTable extends Migration
             $table->longText('exception');
             $table->timestamp('failed_at')->useCurrent();
         });
+        // DB::statement("alter table `failed_jobs` comment'...'");    # 增加表注释
     }
 
     /**

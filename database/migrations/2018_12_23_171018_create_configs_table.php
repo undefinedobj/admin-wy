@@ -20,6 +20,7 @@ class CreateConfigsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        DB::statement("alter table `configs` comment'配置表'");    # 增加表注释
     }
 
     /**

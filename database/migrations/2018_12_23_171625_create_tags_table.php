@@ -19,6 +19,7 @@ class CreateTagsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        DB::statement("alter table `tags` comment'标签表'");    # 增加表注释
     }
 
     /**

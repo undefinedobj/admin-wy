@@ -28,6 +28,7 @@ class CreateOauthUsersTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        // DB::statement("alter table `oauth_users` comment'第三方用户登录表'");    # 增加表注释
     }
 
     /**

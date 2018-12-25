@@ -23,6 +23,7 @@ class CreateJobsTable extends Migration
             $table->unsignedInteger('created_at');
             $table->index(['queue', 'reserved_at']);
         });
+        // DB::statement("alter table `jobs` comment'...'");    # 增加表注释
     }
 
     /**

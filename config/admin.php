@@ -11,7 +11,7 @@ return [
     | login page.
     |
     */
-    'name' => 'Laravel-admin',
+    'name' => 'Admin-wy',
 
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<b>Laravel</b> admin',
+    'logo' => '<b>Admin</b> wy',
 
     /*
     |--------------------------------------------------------------------------
@@ -34,7 +34,7 @@ return [
     | '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo-mini' => '<b>La</b>',
+    'logo-mini' => '<b>Wy</b>',
 
     /*
     |--------------------------------------------------------------------------
@@ -315,7 +315,7 @@ return [
     */
     'extensions' => [
         'material-ui' => [
-            // 如果要关掉这个扩展，设置为false
+            // `laravel-admin`皮肤扩展,如果要关掉这个扩展，设置为false
             'enable' => true
         ]
     ]

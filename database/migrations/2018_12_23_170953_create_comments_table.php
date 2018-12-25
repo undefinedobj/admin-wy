@@ -24,6 +24,7 @@ class CreateCommentsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        DB::statement("alter table `comments` comment'评论表'");    # 增加表注释
     }
 
     /**
