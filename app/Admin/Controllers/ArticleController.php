@@ -39,8 +39,8 @@ class ArticleController extends Controller
     public function edit($id, Content $content)
     {
         return $content
-            ->header('Edit')
-            ->description('description')
+            ->header('编辑文章')
+            ->description('编辑文章')
             ->body($this->form()->edit($id));
     }
 
@@ -53,8 +53,8 @@ class ArticleController extends Controller
     public function create(Content $content)
     {
         return $content
-            ->header('Create')
-            ->description('description')
+            ->header('添加文章')
+            ->description('添加新的文章')
             ->body($this->form());
     }
 
@@ -76,8 +76,8 @@ class ArticleController extends Controller
 
         # 定义开关内容
         $states = [
-                'on'  => ['value' => 1, 'text' => '是', 'color' => 'primary'],
-                'off' => ['value' => 0, 'text' => '否', 'color' => 'default'],
+            'on'  => ['value' => 1, 'text' => '是', 'color' => 'primary'],
+            'off' => ['value' => 0, 'text' => '否', 'color' => 'default'],
         ];
 
         $grid->id('Id');
@@ -86,7 +86,7 @@ class ArticleController extends Controller
         });
         $grid->title('标题')->display(function ($text) {
             return str_limit($text, 30, '...');
-        });
+        })->label();
         $grid->author('作者');
         // $grid->markdown('Markdown');     # markdown文章内容
         // $grid->html('Html');             # markdown转的html页面
@@ -98,10 +98,10 @@ class ArticleController extends Controller
         });
         $grid->cover("封面图")->image(env("APP_URL")."/uploads/",50,50);
         $grid->is_top("是否置顶")->switch($states);
-        $grid->click('点击数');
+        $grid->click('点击数')->badge();
         $grid->created_at('创建时间');
         $grid->updated_at('更新时间');
-        $grid->deleted_at('删除时间');
+        // $grid->deleted_at('删除时间');
 
         return $grid;
     }
@@ -115,23 +115,27 @@ class ArticleController extends Controller
     {
         $form = new Form(new Article);
         
-        $form->footer(function ($footer) {
 
+        $form->tools(function (Form\Tools $tools) {
+            // 去掉`列表`按钮
+            // $tools->disableList();
+            // 去掉`删除`按钮
+            // $tools->disableDelete();
+            // 去掉`查看`按钮
+            $tools->disableView();
+        });
+
+        $form->footer(function ($footer) {
             // 去掉`重置`按钮
             $footer->disableReset();
-
             // 去掉`提交`按钮
             // $footer->disableSubmit();
-
             // 去掉`查看`checkbox
             $footer->disableViewCheck();
-
             // 去掉`继续编辑`checkbox
             $footer->disableEditingCheck();
-
             // 去掉`继续创建`checkbox
-            // $footer->disableCreatingCheck();
-
+            $footer->disableCreatingCheck();
         });
 
         $form->select('category_id', '分类')->options(Category::all()->pluck('name', 'id'))->rules('required');
