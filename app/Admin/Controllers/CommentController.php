@@ -23,8 +23,8 @@ class CommentController extends Controller
     public function index(Content $content)
     {
         return $content
-            ->header('评论列表')
-            ->description('文章评论')
+            ->header('评论')
+            ->description('列表页')
             ->body($this->grid());
     }
 
@@ -38,8 +38,8 @@ class CommentController extends Controller
     public function show($id, Content $content)
     {
         return $content
-            ->header('Detail')
-            ->description('description')
+            ->header('评论')
+            ->description('详情页')
             ->body($this->detail($id));
     }
 
@@ -62,7 +62,7 @@ class CommentController extends Controller
         $show->status('状态');
         $show->created_at('添加时间');
         $show->updated_at('更新时间');
-        // $show->deleted_at('Deleted at');
+        $show->deleted_at('删除时间');
 
         return $show;
     }
@@ -76,17 +76,22 @@ class CommentController extends Controller
     {
         $grid = new Grid(new Comment);
 
+        # 禁用新增
+        $grid->disableCreateButton();
+        # 禁用行选择checkbox
+        $grid->disableRowSelector();
+
         # 按钮显示
         $grid->actions(function ($actions) {
             $actions->disableDelete();
-            $actions->disableEdit();
+            // $actions->disableEdit();
             // $actions->disableView();
         });
 
         # 定义开关(状态)内容
         $states = [
-            'on'  => ['value' => 1, 'text' => '已审核', 'color' => 'primary'],
-            'off' => ['value' => 0, 'text' => '未审核', 'color' => 'default'],
+            'on'  => ['value' => 1, 'text' => '已审核', 'color' => 'success'],
+            'off' => ['value' => 0, 'text' => '未审核', 'color' => 'danger'],
         ];
 
         $grid->id('Id');
@@ -94,29 +99,64 @@ class CommentController extends Controller
         $grid->oauth_user_id('评论者');     # 评论者
         // $grid->pid('Pid');
         $grid->article_id('Article id');    # 管理文章表->文章标题
-        $grid->content('内容');
+        $grid->content('内容')->limit(50);
         $grid->status("状态")->switch($states);
         $grid->created_at('添加时间');
         $grid->updated_at('更新时间');
-        // $grid->deleted_at('Deleted at');
+        $grid->deleted_at('删除时间');
 
         return $grid;
     }
 
-    // /**
-    //  * Edit interface.
-    //  *
-    //  * @param mixed $id
-    //  * @param Content $content
-    //  * @return Content
-    //  */
-    // public function edit($id, Content $content)
-    // {
-    //     return $content
-    //         ->header('Edit')
-    //         ->description('description')
-    //         ->body($this->form()->edit($id));
-    // }
+    /**
+     * Make a form builder.
+     *
+     * @return Form
+     */
+    protected function form()
+    {
+        $form = new Form(new Comment);
+    
+    $form->tools (function(Form\Tools $tools)
+    {
+        
+        $tools->disableDelete();    # 去掉`删除`按钮
+        // $tools->disableList();   # 去掉`列表`按钮
+        // $tools->disableView();   # 去掉`查看`按钮
+    }
+    );
+
+    $form->footer(function ($footer) {
+        $footer->disableReset();            // 去掉`重置`按钮
+        $footer->disableViewCheck();        // 去掉`查看`checkbox
+        // $footer->disableEditingCheck();     // 去掉`继续编辑`checkbox
+        $footer->disableCreatingCheck();    // 去掉`继续创建`checkbox
+    });
+
+        $form->number('oauth_user_id', 'Oauth user id');
+        $form->switch('type', 'Type')->default(1);
+        $form->number('pid', 'Pid');
+        $form->number('article_id', 'Article id');
+        $form->textarea('content', 'Content');
+        $form->switch('status', 'Status');
+
+        return $form;
+    }
+
+    /**
+     * Edit interface.
+     *
+     * @param mixed $id
+     * @param Content $content
+     * @return Content
+     */
+    public function edit($id, Content $content)
+    {
+        return $content
+            ->header('评论')
+            ->description('审核页')
+            ->body($this->form()->edit($id));
+    }
 
     // /**
     //  * Create interface.
@@ -132,22 +172,4 @@ class CommentController extends Controller
     //         ->body($this->form());
     // }
 
-    // /**
-    //  * Make a form builder.
-    //  *
-    //  * @return Form
-    //  */
-    // protected function form()
-    // {
-    //     $form = new Form(new Comment);
-
-    //     $form->number('oauth_user_id', 'Oauth user id');
-    //     $form->switch('type', 'Type')->default(1);
-    //     $form->number('pid', 'Pid');
-    //     $form->number('article_id', 'Article id');
-    //     $form->textarea('content', 'Content');
-    //     $form->switch('status', 'Status');
-
-    //     return $form;
-    // }
 }
