@@ -213,7 +213,15 @@ return [
     | Supported: "tencent", "google", "yandex".
     |
     */
-    'map_provider' => 'google',
+    'map_provider' => 'tencent',
+
+    /**
+     * Laravel-admin 第三方地图接口秘钥
+     * 
+     * Date    2019/01/02
+     * Author  WangYu
+     */
+    'map_key' => env('MAP_KEY', ''),
 
     /*
     |--------------------------------------------------------------------------

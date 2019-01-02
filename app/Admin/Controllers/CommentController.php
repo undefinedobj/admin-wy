@@ -53,8 +53,18 @@ class CommentController extends Controller
     {
         $show = new Show(Comment::findOrFail($id));
 
+        $show->panel()
+            ->tools(function ($tools) {
+                // $tools->disableEdit();
+                // $tools->disableList();
+                $tools->disableDelete();
+            });;
+
         $show->id('Id');
         $show->oauth_user_id('评论者');  # 评论者
+        // $grid->column('users', '评论者')->display(function () {
+        //     return $this->users->name;
+        // });
         $show->type('评论类型');        # 1:文章评论
         // $show->pid('Pid');
         $show->article_id('文章标题');  # 管理文章表->文章标题
@@ -95,10 +105,22 @@ class CommentController extends Controller
         ];
 
         $grid->id('Id');
-        $grid->type('评论类型');            # 1:文章评论
-        $grid->oauth_user_id('评论者');     # 评论者
+        $grid->type('评论类型')->display(function ($type) {
+            if ($type == 1) {
+                return "<span class='label label-success'>文章评论</span>";
+            } elseif ($type == 2) {
+                return "<span class='label label-warning'>心情评论</span>";
+            } else {
+                return "<span class='label label-info'>其它评论</span>";
+            }
+        });
+        $grid->column('users', '评论者')->display(function () {
+            return $this->users->name;
+        });
         // $grid->pid('Pid');
-        $grid->article_id('Article id');    # 管理文章表->文章标题
+        $grid->column('articles', '文章标题')->display(function () {
+            return $this->articles->title;
+        });
         $grid->content('内容')->limit(50);
         $grid->status("状态")->switch($states);
         $grid->created_at('添加时间');
