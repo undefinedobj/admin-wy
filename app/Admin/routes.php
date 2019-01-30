@@ -20,6 +20,7 @@ Route::group([
         'article' => ArticleController::class,					
         'category' => CategoryController::class,
         'tag' => TagController::class,
-        'comment' => CommentController::class,					
+        'comment' => CommentController::class,
+        'testAjax' => TestAjaxController::class,        # 测试Ajax提交数据					
 	]);
 });
