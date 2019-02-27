@@ -68,7 +68,12 @@ class CommentController extends Controller
         $show->type('评论类型');        # 1:文章评论
         // $show->pid('Pid');
         $show->article_id('文章标题');  # 管理文章表->文章标题
-        $show->content('内容');
+        // $show->content('内容');
+        $show->content('内容')->unescape()->as(function ($content) {
+
+            return $content;
+        
+        });
         $show->status('状态');
         $show->created_at('添加时间');
         $show->updated_at('更新时间');
