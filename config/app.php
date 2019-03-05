@@ -167,6 +167,8 @@ return [
         /*
          * Package Service Providers...
          */
+//        Laraval IDE 自动补全助手：Laravel IDE Helper Generator
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
         /*
          * Application Service Providers...
