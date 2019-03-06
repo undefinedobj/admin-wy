@@ -20,3 +20,5 @@ Route::get('/wy', function () {
 });
 // https://www.aliyun.com/jiaocheng/1412353.html
 // https://blog.csdn.net/qq_15096707/article/details/51194899
+
+Route::get('/demo', 'DemoController@index');

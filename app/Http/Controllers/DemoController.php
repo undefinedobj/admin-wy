@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class DemoController extends Controller
 {
@@ -40,7 +41,9 @@ class DemoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (\Config::get('app.debug')) {
+
+        }
     }
 
     /**
@@ -51,7 +54,7 @@ class DemoController extends Controller
      */
     public function show($id)
     {
-        //
+        return Redirect::action('Ad');
     }
 
     /**
