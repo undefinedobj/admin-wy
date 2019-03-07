@@ -41,9 +41,7 @@ class DemoController extends Controller
      */
     public function store(Request $request)
     {
-        if (\Config::get('app.debug')) {
-
-        }
+        //
     }
 
     /**
@@ -54,7 +52,7 @@ class DemoController extends Controller
      */
     public function show($id)
     {
-        return Redirect::action('Ad');
+        return Redirect::action('');
     }
 
     /**
