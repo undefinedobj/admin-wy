@@ -12,6 +12,9 @@
 */
 
 Route::get('/', function () {
+    $user = \App\Models\User::findOrFail(1);
+    \Mail::to($user->email)->send(new \App\Mail\WelcomeToAdminWy($user));
+
     $users = \App\Models\User::paginate(5);
     return view('welcome', compact('users'));
 });
